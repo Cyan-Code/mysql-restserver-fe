@@ -1,30 +1,9 @@
-import { useEffect, useState } from 'react';
 import './App.css';
-
-interface Usuarios {
-  usuarios: Usuario[] | []
-}
-
-interface Usuario {
-  nombre: string;
-  email: string;
-  password: string;
-  estado: boolean;
-  createdAt: string;
-  updatedAt: string;
-}
+import { useGetUsers } from './hooks/useGetUsers';
 
 function App () {
   
-  const [usuarios, setUser] = useState<Usuarios>()
-  
-  useEffect(() => {
-    fetch('http://localhost:8000/api/usuarios/', {
-      method: 'GET'
-    })
-    .then(resp => resp.json())
-    .then(resp => setUser(resp))
-  }, [])
+  const usuarios = useGetUsers();
 
   return (
     <>
@@ -46,10 +25,14 @@ function App () {
             </tr>
           </thead>
           <tbody id="mytable">
-            <tr>
-              <td>he</td>
-              <td>hi</td>
-            </tr>
+            {
+              usuarios?.usuarios.map((user)=>(
+                <tr key = {user.email}>
+                  <td>{user.nombre}</td>
+                  <td>{user.email}</td>
+                </tr>
+              ))
+            }
           </tbody>
         </table>
       </div>
