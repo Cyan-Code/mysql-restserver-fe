@@ -10,9 +10,6 @@ function App () {
     <div className="container">
       <div className="d-flex bd-highlight mb-3">
         <div className="me-auto p-2 bd-highlight">Users</div>
-        <div className="p-2 bd-highlight">
-          <button type="button" className="btn btn-secondary">Create</button>
-        </div>
       </div>
       
       <div className="table-responsive">
@@ -21,7 +18,6 @@ function App () {
             <tr>
               <th scope="col">Nombre</th>
               <th scope="col">Correo</th>
-              <th scope="col">Password</th>
             </tr>
           </thead>
           <tbody id="mytable">
