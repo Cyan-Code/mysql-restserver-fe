@@ -1,38 +1,17 @@
 import './App.css';
-import { useGetUsers } from './hooks/useGetUsers';
+import { Auth } from './components/Auth';
+import { Principal } from './components/Principal';
+
 
 function App () {
-  
-  const usuarios = useGetUsers();
-
+  const email = localStorage;  
   return (
     <>
-    <div className="container">
-      <div className="d-flex bd-highlight mb-3">
-        <div className="me-auto p-2 bd-highlight">Users</div>
-      </div>
-      
-      <div className="table-responsive">
-        <table className="table">
-          <thead>
-            <tr>
-              <th scope="col">Nombre</th>
-              <th scope="col">Correo</th>
-            </tr>
-          </thead>
-          <tbody id="mytable">
-            {
-              usuarios?.usuarios.map((user)=>(
-                <tr key = {user.email}>
-                  <td>{user.nombre}</td>
-                  <td>{user.email}</td>
-                </tr>
-              ))
-            }
-          </tbody>
-        </table>
-      </div>
-    </div> 
+    {
+      (!email.getItem('email'))
+        ? <Auth></Auth>
+        : <Principal></Principal>  
+    }
     </>
   );
 }
