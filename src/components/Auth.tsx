@@ -1,29 +1,30 @@
 import React from 'react';
 import '../styles/Auth.css';
 import { useForm } from '../hooks/useForm';
+import { handleFetch } from '../helpers/handleFetch';
 
 export const Auth = () => {
 
   const {formulario:login, onChange:onChangeLogin} = useForm({
-    lPassword: '',
-    lEmail: ''
+    password: '',
+    email: ''
   })
-  const {lPassword, lEmail} = login;
   
   const {formulario:register, onChange:onChangeRegister} = useForm({
-    rName:'',
-    rPassword: '',
-    rPasswordConf: '',
-    rEmail: ''
+    nombre:'',
+    password: '',
+    passwordConf: '',
+    email: ''
   })
-  const {rName, rPassword, rPasswordConf, rEmail} = register;
 
   const handleLogin = (e:React.FormEvent<HTMLFormElement>) => {
-    localStorage.setItem('email', login.lEmail)
+    localStorage.setItem('email', login.email)
   }
 
-  const handleRegister = (e:React.FormEvent<HTMLFormElement>) => {
-    console.log(login);
+  const handleRegister = async (e:React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    await handleFetch({method:'POST'}, register)
+    localStorage.setItem('email', register.email)
   }
 
   return (
@@ -37,8 +38,8 @@ export const Auth = () => {
                 type="text"
                 className="form-control"
                 placeholder="Correo"
-                value={lEmail}
-                onChange={({target})=>onChangeLogin(target.value, 'lEmail')}
+                value={login.email}
+                onChange={({target})=>onChangeLogin(target.value, 'email')}
               />
             </div>
             <div className="form-group">
@@ -46,8 +47,8 @@ export const Auth = () => {
                 type="password"
                 className="form-control"
                 placeholder="Contraseña"
-                value={lPassword}
-                onChange={({target})=>onChangeLogin(target.value, 'lPassword')}
+                value={login.password}
+                onChange={({target})=>onChangeLogin(target.value, 'password')}
               />
             </div>
             <div className="form-group">
@@ -64,8 +65,8 @@ export const Auth = () => {
                 type="text"
                 className="form-control"
                 placeholder="Nombre"
-                value={rName}
-                onChange={({target})=>onChangeRegister(target.value, 'rName')}
+                value={register.nombre}
+                onChange={({target})=>onChangeRegister(target.value, 'nombre')}
               />
             </div>
             <div className="form-group">
@@ -73,8 +74,8 @@ export const Auth = () => {
                 type="email"
                 className="form-control"
                 placeholder="Correo"
-                value={rEmail}
-                onChange={({target})=>onChangeRegister(target.value, 'rEmail')}
+                value={register.email}
+                onChange={({target})=>onChangeRegister(target.value, 'email')}
               />
             </div>
             <div className="form-group">
@@ -82,8 +83,8 @@ export const Auth = () => {
                 type="password"
                 className="form-control"
                 placeholder="Contraseña"
-                value={rPassword}
-                onChange={({target})=>onChangeRegister(target.value, 'rPassword')}
+                value={register.password}
+                onChange={({target})=>onChangeRegister(target.value, 'password')}
               />
             </div>
 
@@ -92,8 +93,8 @@ export const Auth = () => {
                 type="password"
                 className="form-control"
                 placeholder="Repita la contraseña"
-                value={rPasswordConf}
-                onChange={({target})=>onChangeRegister(target.value, 'rPasswordConf')}
+                value={register.passwordConf}
+                onChange={({target})=>onChangeRegister(target.value, 'passwordConf')}
               />
             </div>
 
