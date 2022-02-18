@@ -1,4 +1,5 @@
 import React from 'react'
+import { updateYield } from 'typescript';
 import { useGetUsers } from '../hooks/useGetUsers';
 
 export const Principal = () => {
@@ -24,6 +25,7 @@ export const Principal = () => {
                 <tr key = {user.email}>
                   <td>{user.nombre}</td>
                   <td>{user.email}</td>
+                  <td>{user.password}</td>
                 </tr>
               ))
             }
