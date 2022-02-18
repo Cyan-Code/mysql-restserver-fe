@@ -17,6 +17,7 @@ export const Principal = () => {
             <tr>
               <th scope="col">Nombre</th>
               <th scope="col">Correo</th>
+              <th scope="col">Contraseña Cifrada con Bcrypt</th>
             </tr>
           </thead>
           <tbody id="mytable">
