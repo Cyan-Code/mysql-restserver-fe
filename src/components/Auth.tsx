@@ -1,7 +1,8 @@
 import React from 'react';
-import '../styles/Auth.css';
 import { useForm } from '../hooks/useForm';
 import { handleFetch } from '../helpers/handleFetch';
+import '../styles/Auth.css';
+import { formvalidation } from '../helpers/form-validation';
 
 export const Auth = () => {
 
@@ -18,13 +19,16 @@ export const Auth = () => {
   })
 
   const handleLogin = (e:React.FormEvent<HTMLFormElement>) => {
-    localStorage.setItem('email', login.email)
+    //localStorage.setItem('email', login.email)
+    e.preventDefault()
+    formvalidation({login})
   }
 
   const handleRegister = async (e:React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    await handleFetch({method:'POST'}, register)
-    localStorage.setItem('email', register.email)
+    //await handleFetch({method:'POST'}, register)
+    //localStorage.setItem('email', register.email)
+    formvalidation({register})
   }
 
   return (

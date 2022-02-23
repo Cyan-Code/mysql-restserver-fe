@@ -1,5 +1,3 @@
-import React from 'react'
-import { updateYield } from 'typescript';
 import { useGetUsers } from '../hooks/useGetUsers';
 
 export const Principal = () => {
