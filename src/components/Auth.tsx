@@ -2,10 +2,10 @@ import React from 'react';
 import { useForm } from '../hooks/useForm';
 import { handleFetch } from '../helpers/handleFetch';
 import '../styles/Auth.css';
-import { formvalidation } from '../helpers/form-validation';
+import { useValidationLogin, useValidationRegister } from '../hooks/useForm-validation';
 
 export const Auth = () => {
-
+  
   const {formulario:login, onChange:onChangeLogin} = useForm({
     password: '',
     email: ''
@@ -18,17 +18,23 @@ export const Auth = () => {
     email: ''
   })
 
+  const returnLogin = useValidationLogin(login)
+  const returnRegister = useValidationRegister(register)
   const handleLogin = (e:React.FormEvent<HTMLFormElement>) => {
-    //localStorage.setItem('email', login.email)
     e.preventDefault()
-    formvalidation({login})
+    if (returnLogin) {
+      localStorage.setItem('email', login.email)
+    }
+    console.log(returnLogin + 'login');
   }
 
   const handleRegister = async (e:React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    //await handleFetch({method:'POST'}, register)
-    //localStorage.setItem('email', register.email)
-    formvalidation({register})
+    if (returnRegister) {
+      await handleFetch({method:'POST'}, register)
+      localStorage.setItem('email', register.email)
+    }
+    console.log(returnRegister + 'Register');
   }
 
   return (
