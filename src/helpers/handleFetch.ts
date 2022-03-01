@@ -1,6 +1,7 @@
 type peticion = {
   method: string,
-  params?: string
+  path: string,
+  params?: string,
 }
 
 type objPetition = {
@@ -9,8 +10,8 @@ type objPetition = {
   nombre  ?: string,
 }
 
-export const handleFetch = async (args: peticion, body: objPetition) => {
-  await fetch('http://localhost:8000/api/usuarios', {
+export const handleFetch = async (args: peticion, body?: objPetition) => {
+  return await fetch(`http://localhost:8000/api${args.path}`, {
     method: args.method,
     headers: {
       'Content-Type': 'application/json'
@@ -18,5 +19,4 @@ export const handleFetch = async (args: peticion, body: objPetition) => {
     body: JSON.stringify(body)
   })
   .then(resp => resp.json())
-  .then(resp => console.log(resp))
 }

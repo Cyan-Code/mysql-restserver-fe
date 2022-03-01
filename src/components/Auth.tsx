@@ -18,23 +18,29 @@ export const Auth = () => {
     email: ''
   })
 
-  const returnLogin = useValidationLogin(login)
-  const returnRegister = useValidationRegister(register)
-  const handleLogin = (e:React.FormEvent<HTMLFormElement>) => {
+  const returnLogin = useValidationLogin(login);
+  const returnRegister = useValidationRegister(register);
+
+  const handleLogin = async (e:React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    if (returnLogin) {
-      localStorage.setItem('email', login.email)
+    if (returnLogin) {//Todo: Continuando aqui
+      await handleFetch({
+        method:'POST',
+        path: '/auth/login'
+      }, login)
+      .then(resp => console.log(resp));// TODO: Usar esa respuesta para mapear avisos
     }
-    console.log(returnLogin + 'login');
   }
 
   const handleRegister = async (e:React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     if (returnRegister) {
-      await handleFetch({method:'POST'}, register)
-      localStorage.setItem('email', register.email)
+      await handleFetch({
+        method:'POST',
+        path: '/usuarios'
+      }, register)
+      .then(resp => console.log(resp));// TODO: Usar esa respuesta para mapear avisos
     }
-    console.log(returnRegister + 'Register');
   }
 
   return (

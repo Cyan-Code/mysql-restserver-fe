@@ -10,11 +10,20 @@ interface login {
   email: string,
   password: string,
 }
-
-export const useValidationLogin = ({email, password}: login):boolean => {
-  if (email.length === 0 || password.length === 0) { return false }
-  if (!validator.isEmail(email)) { return false }
-  return true
+//TODO: Deberian de retornar un objeto para incluir en el Swal
+export const useValidationLogin = ({email, password}: login):object => {//Todo: Retornar valroes interpretables o un
+  let errors = {}
+  if (email.length === 0 || password.length === 0) { 
+    return errors = {
+      mama:'longitud'
+    }
+  }
+  if (!validator.isEmail(email)) {
+    return errors = {
+      papa:'email'
+    }
+  }
+  return errors;
 }
 
 
