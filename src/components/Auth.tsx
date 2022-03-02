@@ -1,10 +1,16 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useForm } from '../hooks/useForm';
 import { handleFetch } from '../helpers/handleFetch';
 import '../styles/Auth.css';
 import { useValidationLogin, useValidationRegister } from '../hooks/useForm-validation';
+import { swAlert } from '../helpers/handleAlerts';
 
 export const Auth = () => {
+
+  useEffect(() => {
+    
+  }, [])
+  
   
   const {formulario:login, onChange:onChangeLogin} = useForm({
     password: '',
@@ -23,13 +29,15 @@ export const Auth = () => {
 
   const handleLogin = async (e:React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    if (returnLogin) {//Todo: Continuando aqui
+    if (returnLogin.flag) {//Todo: Continuando aqui
       await handleFetch({
         method:'POST',
         path: '/auth/login'
       }, login)
-      .then(resp => console.log(resp));// TODO: Usar esa respuesta para mapear avisos
+      .then(resp => console.log(resp));// TODO: Usar esa respuesta para map ear avisos
     }
+    await swAlert(returnLogin.obj)
+    console.log(returnLogin.obj);
   }
 
   const handleRegister = async (e:React.FormEvent<HTMLFormElement>) => {
@@ -51,7 +59,7 @@ export const Auth = () => {
           <form onSubmit={handleLogin}>
             <div className="form-group">
               <input
-                type="text"
+                type="email"
                 className="form-control"
                 placeholder="Correo"
                 value={login.email}
