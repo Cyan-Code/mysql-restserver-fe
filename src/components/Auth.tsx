@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useForm } from '../hooks/useForm';
 import { handleFetch } from '../helpers/handleFetch';
 import '../styles/Auth.css';
@@ -7,11 +7,6 @@ import { swAlert } from '../helpers/handleAlerts';
 
 export const Auth = () => {
 
-  useEffect(() => {
-    
-  }, [])
-  
-  
   const {formulario:login, onChange:onChangeLogin} = useForm({
     password: '',
     email: ''
@@ -29,15 +24,24 @@ export const Auth = () => {
 
   const handleLogin = async (e:React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    if (returnLogin.flag) {//Todo: Continuando aqui
+    if (returnLogin) {//Todo: Continuando aqui
       await handleFetch({
         method:'POST',
         path: '/auth/login'
       }, login)
-      .then(resp => console.log(resp));// TODO: Usar esa respuesta para map ear avisos
+      .then(resp => {
+        if (resp.msg !== 'ok') {
+          const passing = {icon: 'error', msg: resp.msg, title: 'Error en la autenticacion', timer: 5000}
+          swAlert(passing);
+        } else {
+          const passing = {icon: 'success', msg: resp.msg, title: 'Autenticado', timer: 1000}
+          swAlert(passing);
+        }
+      })
+    } else {
+      const passing = {icon:'error' , title: 'Credenciales no validas', text: 'Revisa tus credenciales'}
+      await swAlert(passing)
     }
-    await swAlert(returnLogin.obj)
-    console.log(returnLogin.obj);
   }
 
   const handleRegister = async (e:React.FormEvent<HTMLFormElement>) => {

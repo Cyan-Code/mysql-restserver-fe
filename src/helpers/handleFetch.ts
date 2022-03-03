@@ -19,4 +19,5 @@ export const handleFetch = async (args: peticion, body?: objPetition) => {
     body: JSON.stringify(body)
   })
   .then(resp => resp.json())
+  .catch(resp => resp.json());
 }

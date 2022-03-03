@@ -1,17 +1,13 @@
 import Swal from "sweetalert2";
+//'warning' | 'error'| 'success'| 'info'| 'question'
 
-type alert = {
-  msg?: string,
-  title?: string,
-}
-
-export const swAlert = async(obj: alert) => {
+export const swAlert = async(obj: any) => {
   return Swal.fire({
-    icon: 'error',
+    icon: obj.icon,
     title: obj.title,
     text: obj.msg,
     showConfirmButton: false,
-    timer: 1500
+    timer: obj.timer
   })
 }
 
