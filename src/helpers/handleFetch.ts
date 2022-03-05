@@ -5,7 +5,7 @@ type peticion = {
 }
 
 type objPetition = {
-  email: string,
+  id: string,
   password: string,
   nombre  ?: string,
 }

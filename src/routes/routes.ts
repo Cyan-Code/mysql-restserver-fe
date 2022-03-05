@@ -1,5 +1,6 @@
-import { Auth } from "../components/Auth"
-import { Principal } from "../components/Principal"
+import { Login } from "../components/auth/Login"
+import { Register } from "../components/auth/Register"
+import { Principal } from "../components/home/Principal"
 
 
 interface Route {
@@ -17,10 +18,16 @@ export const routes:Route[] = [
     Component: Principal
   },
   {
-    to: 'auth',
-    name: 'auth',
-    path: '/auth',
-    Component: Auth
+    to: 'login',
+    name: 'login',
+    path: '/login',
+    Component: Login
+  },
+  {
+    to: 'register',
+    name: 'register',
+    path: '/register',
+    Component: Register
   }
 ]
 

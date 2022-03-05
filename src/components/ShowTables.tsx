@@ -1,9 +1,8 @@
 import { useGetUsers } from '../hooks/useGetUsers';
 
-export const Principal = () => {
-  const usuarios = useGetUsers();
+export const ShowTables = () => {
+  const users = useGetUsers();
   return (
-    <>
     <div className="container">
       <div className="d-flex bd-highlight mb-3">
         <div className="me-auto p-2 bd-highlight">Users</div>
@@ -14,16 +13,16 @@ export const Principal = () => {
           <thead>
             <tr>
               <th scope="col">Nombre</th>
-              <th scope="col">Correo</th>
+              <th scope="col">level</th>
               <th scope="col">Contraseña Cifrada con Bcrypt</th>
             </tr>
           </thead>
           <tbody id="mytable">
             {
-              usuarios?.usuarios.map((user)=>(
-                <tr key = {user.email}>
-                  <td>{user.nombre}</td>
-                  <td>{user.email}</td>
+              users?.users.map((user)=>(
+                <tr key = {user.id}>
+                  <td>{user.name}</td>
+                  <td>{user.level}</td>
                   <td>{user.password}</td>
                 </tr>
               ))
@@ -32,6 +31,5 @@ export const Principal = () => {
         </table>
       </div>
     </div>
-  </>
   )
 }

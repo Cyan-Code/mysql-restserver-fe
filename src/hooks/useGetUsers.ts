@@ -1,30 +1,29 @@
 import { useEffect, useState } from "react";
 
-interface Usuarios {
-  usuarios: Usuario[] | []
+interface Users {
+  users: user[] |[]
 }
 
-interface Usuario {
-  nombre: string;
-  email: string;
+interface user {
+  name: string;
+  level: string;
   password: string;
-  estado: boolean;
+  id: string;
   createdAt: string;
   updatedAt: string;
 }
 
 export const useGetUsers = () => {
   
-  const [usuarios, setUser] = useState<Usuarios>()
+  const [users, setUser] = useState<Users>()
   
   useEffect(() => {
-    fetch('http://localhost:8000/api/usuarios/', {
+    fetch('http://localhost:8000/api/users/', {
       method: 'GET'
     })
     .then(resp => resp.json())
     .then(resp => setUser(resp))
   }, [])
   
-  return usuarios;
-
+  return users;
 }

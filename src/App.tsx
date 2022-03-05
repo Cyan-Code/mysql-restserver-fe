@@ -1,15 +1,16 @@
 import './App.css';
-import { Auth } from './components/Auth';
-import { Principal } from './components/Principal';
+//import { Login } from './components/auth/Login';
+import { Register } from './components/auth/Register';
+import { Principal } from './components/home/Principal';
 
 
 function App () {
-  const email = localStorage;  
+  
   return (
     <>
     {
-      (!email.getItem('email'))
-        ? <Auth></Auth>
+      (!localStorage.getItem('token'))
+        ? <Register></Register>
         : <Principal></Principal>  
     }
     </>
