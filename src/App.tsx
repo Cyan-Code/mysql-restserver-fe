@@ -1,19 +1,13 @@
 import './App.css';
-//import { Login } from './components/auth/Login';
-import { Register } from './components/auth/Register';
-import { Principal } from './components/home/Principal';
-
+import { AuthProvider } from './context/AuthProvider';
+import { AppRoute } from './routes/AppRoute';
 
 function App () {
   
   return (
-    <>
-    {
-      (!localStorage.getItem('token'))
-        ? <Register></Register>
-        : <Principal></Principal>  
-    }
-    </>
+    <AuthProvider>
+      <AppRoute/>
+    </AuthProvider>
   );
 }
 
