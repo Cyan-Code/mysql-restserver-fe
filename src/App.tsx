@@ -1,19 +1,16 @@
 import './App.css';
-//import { Login } from './components/auth/Login';
-import { Register } from './components/auth/Register';
-import { Principal } from './components/home/Principal';
-
+import { Provider } from 'react-redux';
+import { store } from './store/store'
+import { Routes } from './routes/AppRoutes';
+import { Buffer } from 'buffer';
+global.Buffer = Buffer;
 
 function App () {
   
   return (
-    <>
-    {
-      (!localStorage.getItem('token'))
-        ? <Register></Register>
-        : <Principal></Principal>  
-    }
-    </>
+    <Provider store = {store}>
+      <Routes/>
+    </Provider>
   );
 }
 

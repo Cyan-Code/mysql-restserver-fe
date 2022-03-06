@@ -1,12 +1,16 @@
 import React from 'react';
 import { useForm } from '../../hooks/useForm';
-import { handleFetch } from '../../helpers/handleFetch';
+//import { handleFetch } from '../../helpers/handleFetch';
 import '../../styles/Auth.css';
 import { useValidationLogin } from '../../hooks/useForm-validation';
 import { swAlert } from '../../helpers/handleAlerts';
+import { useDispatch } from 'react-redux';
+import { startLogin } from '../../actions/auth';
 
 export const Login = () => {
-
+  
+  const dispatch = useDispatch();
+  
   const {formulario:login, onChange:onChangeLogin} = useForm({
     password: '',
     id: ''
@@ -17,20 +21,7 @@ export const Login = () => {
   const handleLogin = async (e:React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     if (returnLogin) {
-      await handleFetch({
-        method:'POST',
-        path: '/auth/login'
-      }, login)
-      .then(resp => {
-        if (resp.msg !== 'ok') {
-          const passing = {icon: 'error', msg: resp.msg, title: 'Error en la autenticacion', timer: 5000}
-          swAlert(passing);
-        } else {
-          const passing = {icon: 'success', msg: resp.msg, title: 'Autenticado', timer: 1000}
-          swAlert(passing);
-          localStorage.setItem('token', resp.token);
-        }
-      })
+      dispatch(startLogin(login))
     } else {
       const passing = {icon:'error' , title: 'Credenciales no validas', text: 'Revisa tus credenciales'}
       await swAlert(passing)

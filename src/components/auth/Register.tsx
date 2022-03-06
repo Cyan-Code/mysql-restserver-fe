@@ -38,7 +38,7 @@ export const Register = () => {
       const passing = {icon:'error' , title: 'Credenciales no validas', text: 'Revisa tus credenciales'}
       await swAlert(passing)
     }
-    }
+  }
 
   return (
     <div className="container login-container">
