@@ -1,5 +1,7 @@
+import { user } from "../interfaces/interface"
 
-export const types = {
-  login: 'login',
-  register: 'register'
-}
+type typeAction = 
+  | { type: 'Login', payload:user }
+  | { type: 'Logout', payload:user }
+
+export default typeAction;

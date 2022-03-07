@@ -1,12 +1,24 @@
-import React from 'react'
-//import { Login } from './components/auth/Login';
+import { useContext, useEffect } from 'react'
 import { Register } from '../components/auth/Register';
-//import { Principal } from './components/home/Principal';
+import { AuthContext } from '../context/AuthContext';
+//import { Login } from './components/auth/Login';
+import { Principal } from '../components/home/Principal';
 
 export const AppRoute = () => {
+  const {user} = useContext(AuthContext)
+  
+  useEffect(() => {
+    
+  }, [user])
+  
+
   return (
     <>
-      <Register/>
+    {
+      (user.id.length !== 0)
+        ? <Principal/>
+        : <Register/>
+    }
     </>
   )
 }

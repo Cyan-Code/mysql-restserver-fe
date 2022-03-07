@@ -1,17 +1,8 @@
 import jwt from "jsonwebtoken";
+import { token } from "../interfaces/interface";
 
-interface token {
-  id: string,
-  level: string,
-  name: string,
-}
 
-export const validarJWT = (token:string) => {
-  
-  try {
-    const tokenA = jwt.verify( token, 'myT0K3M' ) as token;
-    return tokenA
-  } catch (error) {
-    console.log(error);
-  }
+export const validarJWT = (token:string):(token|undefined) => {
+  const tokenA = jwt.verify( token, 'myT0K3M' ) as token;
+  return tokenA
 }
