@@ -16,9 +16,9 @@ interface user {
   password?: string;
 }
 
-type paths = | 'users' | 'students' | 'students/audit';
+//type paths = | 'users' | 'students' | 'students/audit';
 
-export const useGetUsers = (path:paths) => {
+export const useGetUsers = (path:string):Users | undefined => {
   
   const [users, setUser] = useState<Users>()
   

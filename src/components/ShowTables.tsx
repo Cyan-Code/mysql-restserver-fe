@@ -1,8 +1,7 @@
-import { useGetUsers } from "../hooks/useGetUsers";
-//import { user } from "../interfaces/interface"
+import { Users } from '../hooks/useGetUsers';
 
-export const ShowTables = () => {
-  const users = useGetUsers('students/audit');
+export const ShowTables = (props: {users:(Users|undefined)}) => {
+  
   return (
     <div className="container">
       <div className="d-flex bd-highlight mb-3">
@@ -14,20 +13,27 @@ export const ShowTables = () => {
           <thead>
             <tr>
               <th scope="col">Nombre</th>
-              <th scope="col">level</th>
               <th scope="col">id</th>
+              <th scope="col">Programa</th>
+              <th scope="col">idStudent</th>
+              <th scope="col">Admin</th>
+              <th scope="col">id Admin</th>
+              <th scope="col">level</th>
+              <th scope="col">Creado</th>
             </tr>
           </thead>
           <tbody id="mytable">
             {
-              users?.users.map((user)=>(
+              props.users?.users.map((user)=>(
                 <tr key = {user.id}>
                   <td>{user.name}</td>
-                  <td>{user.level}</td>
-                  <td>{user.id}</td>{/* 
-                  <td>{user.nameAdmin}</td>
+                  <td>{user.id}</td>
                   <td>{user.program}</td>
-                  <td>{user.idStudent}</td> */}
+                  <td>{user.idStudent}</td>
+                  <td>{user.nameAdmin}</td>
+                  <td>{user.idAdmin}</td>
+                  <td>{user.level}</td>
+                  <td>{user.createdAt}</td>
                 </tr>
               ))
             }
