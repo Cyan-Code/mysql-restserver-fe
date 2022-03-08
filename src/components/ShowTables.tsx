@@ -1,4 +1,5 @@
-import { useGetUsers } from '../hooks/useGetUsers';
+import { useGetUsers } from "../hooks/useGetUsers";
+//import { user } from "../interfaces/interface"
 
 export const ShowTables = () => {
   const users = useGetUsers();
@@ -14,7 +15,7 @@ export const ShowTables = () => {
             <tr>
               <th scope="col">Nombre</th>
               <th scope="col">level</th>
-              <th scope="col">Contraseña Cifrada con Bcrypt</th>
+              <th scope="col">id</th>
             </tr>
           </thead>
           <tbody id="mytable">
@@ -23,7 +24,7 @@ export const ShowTables = () => {
                 <tr key = {user.id}>
                   <td>{user.name}</td>
                   <td>{user.level}</td>
-                  <td>{user.password}</td>
+                  <td>{user.id}</td>
                 </tr>
               ))
             }

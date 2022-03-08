@@ -1,12 +1,14 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import { AuthContext } from '../../context/AuthContext';
 import { swAlert } from '../../helpers/handleAlerts';
 import { handleFetch } from '../../helpers/handleFetch';
-import { validarJWT } from '../../helpers/handleToken';
 import { useForm } from '../../hooks/useForm'
 import { useValidationRegister } from '../../hooks/useForm-validation';
 import '../../styles/Auth.css';
 
 export const Register = () => {
+
+  const {authDispatch} = useContext(AuthContext)
   
   const {formulario:register, onChange:onChangeRegister} = useForm({
     name:'',
@@ -32,7 +34,7 @@ export const Register = () => {
         } else {
           const passing = {icon: 'success', msg: resp.msg, title: 'Autenticado', timer: 1000}
           swAlert(passing);
-          //validarJWT(resp.token)
+          authDispatch('Login', resp.info);
         }
       })
     } else {

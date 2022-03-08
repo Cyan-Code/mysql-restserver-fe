@@ -1,8 +1,7 @@
 import { useContext, useEffect } from 'react'
-import { Register } from '../components/auth/Register';
 import { AuthContext } from '../context/AuthContext';
-//import { Login } from './components/auth/Login';
-import { Principal } from '../components/home/Principal';
+import { AuthRouter } from './AuthRouter';
+import { PrincipalRoute } from './PrincipalRoute';
 
 export const AppRoute = () => {
   const {user} = useContext(AuthContext)
@@ -16,8 +15,8 @@ export const AppRoute = () => {
     <>
     {
       (user.id.length !== 0)
-        ? <Principal/>
-        : <Register/>
+        ? <PrincipalRoute/>
+        : <AuthRouter/>
     }
     </>
   )

@@ -4,8 +4,12 @@ import { handleFetch } from '../../helpers/handleFetch';
 import '../../styles/Auth.css';
 import { useValidationLogin } from '../../hooks/useForm-validation';
 import { swAlert } from '../../helpers/handleAlerts';
+import { AuthContext } from '../../context/AuthContext';
+import { useContext } from 'react'
 
 export const Login = () => {
+
+  const {authDispatch} = useContext(AuthContext)
 
   const {formulario:login, onChange:onChangeLogin} = useForm({
     password: '',
@@ -28,7 +32,7 @@ export const Login = () => {
         } else {
           const passing = {icon: 'success', msg: resp.msg, title: 'Autenticado', timer: 1000}
           swAlert(passing);
-          localStorage.setItem('token', resp.token);
+          authDispatch('Login', resp.info);
         }
       })
     } else {
