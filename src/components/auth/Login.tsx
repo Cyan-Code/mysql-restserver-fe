@@ -33,6 +33,7 @@ export const Login = () => {
           const passing = {icon: 'success', msg: resp.msg, title: 'Autenticado', timer: 1000}
           swAlert(passing);
           authDispatch('Login', resp.info);
+          localStorage.setItem('x-token', resp.token);
         }
       })
     } else {
@@ -44,7 +45,7 @@ export const Login = () => {
   return (
     <div className="container login-container">
       <div className="row">
-        <div className="col-md-6 login-form-1">
+        <div className="col login-form-1">
           <h3>Ingreso</h3>
           <form onSubmit={handleLogin}>
             <div className="form-group">

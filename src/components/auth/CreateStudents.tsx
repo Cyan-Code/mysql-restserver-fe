@@ -1,31 +1,31 @@
-import React, { useContext } from 'react'
-import { AuthContext } from '../../context/AuthContext';
+import React from 'react'
 import { swAlert } from '../../helpers/handleAlerts';
 import { handleFetch } from '../../helpers/handleFetch';
-import { useForm } from '../../hooks/useForm'
-import { useValidationRegister } from '../../hooks/useForm-validation';
-import '../../styles/Auth.css';
+import { useForm } from '../../hooks/useForm';
 
-export const Register = () => {
+export const CreateStudents = () => {
 
-  const {authDispatch} = useContext(AuthContext)
-  
   const {formulario:register, onChange:onChangeRegister} = useForm({
     name:'',
-    password: '',
-    passwordConf: '',
     id: '',
-    level:''
+    program:''
   });
 
-  const returnRegister = useValidationRegister(register);
+  const evaluate = () => {
+    const {id,name,program} = register
+    if (id.length === 0 || name.length === 0 || program.length === 0) {
+      return false
+    } else {
+      return true
+    }
+  }
 
   const handleRegister = async (e:React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    if (returnRegister) {
+    if (evaluate()) {
       await handleFetch({
         method:'POST',
-        path: '/users'
+        path: '/students'
       }, register)
       .then(resp => {
         if (resp.state !== 'ok') {
@@ -34,20 +34,19 @@ export const Register = () => {
         } else {
           const passing = {icon: 'success', msg: resp.msg, title: 'Autenticado', timer: 1000}
           swAlert(passing);
-          authDispatch('Login', resp.info);
         }
       })
     } else {
-      const passing = {icon:'error' , title: 'Credenciales no validas', text: 'Revisa tus credenciales'}
-      await swAlert(passing)
+      const passing = {icon: 'error', msg: 'revisa las credenciales', title: '', timer: 5000}
+      swAlert(passing);
     }
-    }
+  }
 
   return (
     <div className="container login-container">
       <div className="row">
       <div className="col login-form-2">
-          <h3>Registro</h3>
+          <h3>Crear Estudiante</h3>
           <form onSubmit={(e)=>handleRegister(e)}>
             <div className="form-group">
               <input
@@ -69,41 +68,20 @@ export const Register = () => {
             </div>
             <div className="form-group">
               <input
-                type="password"
+                type="text"
                 className="form-control"
-                placeholder="Contraseña"
-                value={register.password}
-                onChange={({target})=>onChangeRegister(target.value, 'password')}
+                placeholder="Programa"
+                value={register.program}
+                onChange={({target})=>onChangeRegister(target.value, 'program')}
               />
             </div>
 
             <div className="form-group">
-              <input
-                type="password"
-                className="form-control"
-                placeholder="Repita la contraseña"
-                value={register.passwordConf}
-                onChange={({target})=>onChangeRegister(target.value, 'passwordConf')}
-              />
-            </div>
-
-            <div className="form-group">
-              <input
-                type="level"
-                className="form-control"
-                placeholder="user o admin"
-                value={register.level}
-                onChange={({target})=>onChangeRegister(target.value, 'level')}
-              />
-            </div>
-
-            <div className="form-group">
-              <input type="submit" className="btnSubmit" value="Crear cuenta" />
+              <input type="submit" className="btnSubmit" value="Crear estudiante" />
             </div>
           </form>
         </div>
       </div>
     </div>
   )
-
 }

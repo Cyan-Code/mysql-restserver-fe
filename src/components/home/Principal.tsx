@@ -6,18 +6,16 @@ import { useContext, useState } from 'react';
 import { AuthContext } from "../../context/AuthContext";
 
 import { useEffect } from "react";
+import { CreateStudents } from "../auth/CreateStudents";
 
 export const Principal = () => {
-  const {user} = useContext(AuthContext)
-  
+  const {user, authDispatch} = useContext(AuthContext);
   const [path, setPath] = useState('students');
-  
   const users = useGetUsers(path);
-  useEffect(() => {
-    
-  }, [path])
+  useEffect(() => {}, [path]);
   
-
+  const [createStudent, setcreateStudent] = useState(false);
+  
   return (
     <>
       <div className="row container">
@@ -26,44 +24,52 @@ export const Principal = () => {
             (user.level === 'admin')
             ? (
               <div className="row pt-5">
-                <button className="btn-primary">  Crear Estudiante</button>
+                <button
+                  className="btn-primary"
+                  onClick={()=> setcreateStudent(prev => !prev)}
+                >  {(createStudent)?`Volver`:`Crear Estudiante`}</button>
               </div>
               )
             : <div></div>
           }
           {/*  */}
-          <div className="row pt-5">
-            <button 
-                className="btn-primary"
-                onClick={()=>setPath('students')}
-              >
-                Ver estudiantes</button>
-          </div>
-          <div className="row pt-5">
-            <button 
-                className="btn-primary"
-                onClick={()=>setPath('users')}
-              >
-                Reporte Usuarios</button>
-          </div>
-          <div className="row pt-5">
-            <button 
-                className="btn-primary"
-                onClick={()=>setPath('students/audit')}
-              >
-                Reporte Auditoria</button>
-          </div>
-          {/*  */}
-          <div className="row pt-5">
-            <button className="btn-primary">  Regresar</button>
-          </div>
+          { (!createStudent)
+              ? (<>
+                  <div className="row pt-5">
+                    <button 
+                        className="btn-primary"
+                        onClick={()=>setPath('students')}
+                      >
+                        Ver estudiantes</button>
+                  </div>
+                  <div className="row pt-5">
+                    <button 
+                        className="btn-primary"
+                        onClick={()=>setPath('users')}
+                      >
+                        Reporte Usuarios</button>
+                  </div>
+                  <div className="row pt-5">
+                    <button 
+                        className="btn-primary"
+                        onClick={()=>setPath('students/audit')}
+                      >
+                        Reporte Auditoria</button>
+                  </div>
+                </>
+              ): <div></div>
+              }
           <hr />
           <div className="row pt-5">
-            <button className="btn-danger">  Salir</button>
+            <button className="btn-danger" onClick={()=>authDispatch('Logout', user)}>  Salir</button>
           </div>
         </div>
         <div className="col">
-          <ShowTables users={users}/>
+          {
+            (createStudent)
+              ?<CreateStudents />
+              :<ShowTables users={users}/>
+          }
         </div>
       </div>
     </>
