@@ -2,7 +2,7 @@ import { useGetUsers } from "../hooks/useGetUsers";
 //import { user } from "../interfaces/interface"
 
 export const ShowTables = () => {
-  const users = useGetUsers();
+  const users = useGetUsers('students/audit');
   return (
     <div className="container">
       <div className="d-flex bd-highlight mb-3">
@@ -24,7 +24,10 @@ export const ShowTables = () => {
                 <tr key = {user.id}>
                   <td>{user.name}</td>
                   <td>{user.level}</td>
-                  <td>{user.id}</td>
+                  <td>{user.id}</td>{/* 
+                  <td>{user.nameAdmin}</td>
+                  <td>{user.program}</td>
+                  <td>{user.idStudent}</td> */}
                 </tr>
               ))
             }
