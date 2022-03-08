@@ -16,6 +16,11 @@ export const Principal = () => {
   
   const [createStudent, setcreateStudent] = useState(false);
   
+  const handleLogout = () => {
+    authDispatch('Logout', user);
+    localStorage.removeItem('x-token');
+  }
+
   return (
     <>
       <div className="row container">
@@ -61,7 +66,7 @@ export const Principal = () => {
               }
           <hr />
           <div className="row pt-5">
-            <button className="btn-danger" onClick={()=>authDispatch('Logout', user)}>  Salir</button>
+            <button className="btn-danger" onClick={()=>handleLogout()}>  Salir</button>
           </div>
         </div>
         <div className="col">
