@@ -35,6 +35,8 @@ export const Register = () => {
           const passing = {icon: 'success', msg: resp.msg, title: 'Autenticado', timer: 1000}
           swAlert(passing);
           authDispatch('Login', resp.info);
+          localStorage.clear();
+          localStorage.setItem('x-token', resp.token);
         }
       })
     } else {
